@@ -10,34 +10,28 @@
       var login_button = document.getElementById("login");
       login_button.addEventListener('submit', function(evt) {
         evt.preventDefault();
-        check_login(this);
-        login(this);//can not be fetched by correct object
-      });           //so I make "login function" as a global function
+        login(this).then(function() {
+          call_listening();
+        });
+      });
     }
   };
-  function check_call(login_form,call_form) {
-    if (call_form.number.value == "") {
-      call_form.call_name = login_form.login_name;
-      call_form.number.value = login_form.login_name;
-    } else {
-      call_form.call_name = call_form.number.value;
-    }
-    call_form.number.style.background = "#55ff5b";
-  }
-  function check_login(_form) {
-    if (_form.username.value == '') {
-      _form.login_name = "Anonymous";
-      _form.username.value = "Anonymous";
-    } else {
-      _form.login_name = _form.username.value;
-    }
-    _form.username.style.background = "#55ff5b";
-  }
   function login(form) {
-    var peer= new Peer(form.login_name, {key: 'p89ccz2nmuzq6w29', debug: 3});
+    return new Promise((function(resolve) {
+      if (form.username.value == '') {
+        alert("Please Login First !");
+      } else {
+        window.login_name = form.username.value;
+        form.username.style.background = "#55ff5b";
+        resolve();
+      }
+    }));
+  }
+  function call_listening() {
+    var peer= new Peer(window.login_name, {key: 'p89ccz2nmuzq6w29', debug: 3});
     //Emitted when a connection to the PeerServer is established
     peer.on('open', function() {
-      console.log("My peer ID is: " + form.login_name);
+      console.log("My peer ID is: " + window.login_name);
     });
     peer.on('error', function(err){
       console.log(err.message);
@@ -46,26 +40,38 @@
     peer.on('call', function(call) {
       console.log("HEY I GOT YOUR CALL!!!!");
       call.answer(window.localstream);
+      call_connected(call);
     });
-    call_listening(peer,form);
-  }
-  function call_listening(_peer,_form) {
+
     var call_button = document.getElementById("call");
     call_button.addEventListener('submit', function(evt) {
       evt.preventDefault();
-      check_call(_form, this);
-      call_connecting(_peer, this);
+      call_connecting(peer,this);
     });
   }
-  function call_connecting(temp_peer,call_form) {
-    var call = temp_peer.call(call_form.call_name,window.localstream);
-    call.on('stream', function(stream) {
+  function call_connecting(_peer,form) {
+    if (form.number.value == "") {
+
+    } else {
+      window.call_name = form.number.value;
+      form.number.style.background = "#55ff5b";
+    }
+    var call = _peer.call(window.call_name,window.localstream);
+    call_connected(call);
+  }
+  function call_connected(_call) {
+    _call.on('stream', function(stream) {
       console.log("we're connected!");
-      document.getElementById("remote") = stream;
+      navigator.video = document.getElementById("remote");
+      window.remotestream = stream;
+      if (window.URL) {
+        navigator.video.src = window.URL.createObjectURL(remotestream);
+      } else {
+        navigator.video.src = remotestream;
+      }
     });
-    call.on('error', function(err) {
-      console.log(err.message);
-      temp_peer.disconnect();
+    _call.on('error', function(err) {//the connection is being setted , the only problem is
+      console.log(err.message);     //how do I assign the localstream to another peer
     });
   }
   exports.SignalChannelManager = SignalChannelManager;
