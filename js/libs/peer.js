@@ -407,7 +407,7 @@ Negotiator._idPrefix = 'pc_';
 /** Returns a PeerConnection object set up correctly (for data, media). */
 Negotiator.startConnection = function(connection, options) {
   var pc = Negotiator._getPeerConnection(connection, options);
-
+	console.log("trace 1: " + pc);
   if (connection.type === 'media' && options._stream) {
     // Add the stream.
     pc.addStream(options._stream);
@@ -415,6 +415,7 @@ Negotiator.startConnection = function(connection, options) {
 
   // Set the connection's PC.
   connection.pc = connection.peerConnection = pc;
+	console.log("trace 2: " + connection.pc);
   // What do we need to do now?
   if (options.originator) {
     if (connection.type === 'data') {
@@ -435,9 +436,11 @@ Negotiator.startConnection = function(connection, options) {
     }
 
     if (!util.supports.onnegotiationneeded) {
+			console.log("trace 3: if");
       Negotiator._makeOffer(connection);
     }
   } else {
+		console.log("trace 3: else");
     Negotiator.handleSDP('OFFER', connection, options.sdp);
   }
 }
@@ -510,6 +513,9 @@ Negotiator._startPeerConnection = function(connection) {
 
 /** Set up various WebRTC listeners. */
 Negotiator._setupListeners = function(connection, pc, pc_id) {
+	console.log("connection : " + connection);
+	console.log("pc : " + pc);
+	console.log("pc_id : " + pc_id);
   var peerId = connection.peer;
   var connectionId = connection.id;
   var provider = connection.provider;
@@ -556,6 +562,7 @@ Negotiator._setupListeners = function(connection, pc, pc_id) {
   pc.onnegotiationneeded = function() {
     util.log('`negotiationneeded` triggered');
     if (pc.signalingState == 'stable') {
+			console.log("HEREHERE : " + connection);
       Negotiator._makeOffer(connection);
     } else {
       util.log('onnegotiationneeded triggered when not stable. Is another connection being established?');
@@ -602,6 +609,7 @@ Negotiator.cleanup = function(connection) {
 }
 
 Negotiator._makeOffer = function(connection) {
+	console.log(connection);
   var pc = connection.pc;
   pc.createOffer(function(offer) {
     util.log('Created offer.');
