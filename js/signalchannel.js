@@ -42,16 +42,11 @@
     call_connected(_peer,call);
   }
   function call_connected(temp_peer,_call) {
-    console.log("FIRST TRACE");
     _call.on('stream', function(stream) {
-      console.log("we're connected!");
-      navigator.video = document.getElementById("remote");
       window.remotestream = stream;
-      if (window.URL) {
-        navigator.video.src = window.URL.createObjectURL(remotestream);
-      } else {
-        navigator.video.src = remotestream;
-      }
+      console.log("we're connected!");
+      window.video = document.getElementById("remote");
+      window.video.src = window.URL.createObjectURL(remotestream);
     });
     _call.on('error', function(err) {
       console.log(err.message);
@@ -67,7 +62,7 @@
       form.username.style.background = "#55ff5b";
     });
     peer.on('call', function(call) {
-      console.log("HEY I GOT YOUR CALL!!!!");
+      console.log("Hi " + window.call_name + " ,I got your call !");
       call.answer(window.localstream);
       call_connected(peer,call);
     });

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Final-Project</title>
+        <meta name="viewport" content="width=device-width; initial-scale=1.0">
+        <link rel="stylesheet" href="css/app.css">
+
+        <script type="text/javascript" src="js/libs/peer.js"></script>
+        <script type="text/javascript" src="js/libs/adapter.js"></script>
+        <script type="text/javascript" src="js/main.js" defer></script>
+        <script type="text/javascript" src="js/mediastream.js" defer></script>
+        <script type="text/javascript" src="js/signalchannel.js" defer></script>
+    </head>
+    <body>
+      <video id="local" autoplay></video>
+      <video id="remote" autoplay></video>
+      <form name="loginForm" id="login">
+        <input type="text" name="username" placeholder="請輸入暱稱" />
+        <input type="submit" name="login_submit" value="登入">
+      </form>
+      <form name="callForm" id="call">
+	      <input type="text" name="number" placeholder="輸入想要連線的人" />
+	      <input type="submit" value="連線"/>
+      </form>
+    </body>
+</html>

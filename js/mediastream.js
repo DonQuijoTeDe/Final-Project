@@ -28,9 +28,10 @@
       var constraints = {audio: false, video: true};
       navigator.mediaDevices.getUserMedia(constraints)
       .then(function(stream) {
-        window.video = document.getElementById('local');
-        window.video.src = window.URL.createObjectURL(stream);
+        console.log("localstream" + stream);
         window.localstream = stream;
+        window.video = document.getElementById('local');
+        window.video.src = window.URL.createObjectURL(localstream);
       })
       .catch(function(err) {
         console.log(err.name + ": " + err.message);

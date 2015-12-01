@@ -1,4 +1,4 @@
-/*! peerjs build:0.3.14, development. Copyright(c) 2013 Michelle Bu <michelle@michellebu.com> */(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
++/*! peerjs_fork_firefox40 build:0.3.15, development. Copyright(c) 2013 Michelle Bu <michelle@michellebu.com> */(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 module.exports.RTCSessionDescription = window.RTCSessionDescription ||
 	window.mozRTCSessionDescription;
 module.exports.RTCPeerConnection = window.RTCPeerConnection ||
@@ -407,7 +407,6 @@ Negotiator._idPrefix = 'pc_';
 /** Returns a PeerConnection object set up correctly (for data, media). */
 Negotiator.startConnection = function(connection, options) {
   var pc = Negotiator._getPeerConnection(connection, options);
-	console.log("trace 1: " + pc);
   if (connection.type === 'media' && options._stream) {
     // Add the stream.
     pc.addStream(options._stream);
@@ -415,7 +414,6 @@ Negotiator.startConnection = function(connection, options) {
 
   // Set the connection's PC.
   connection.pc = connection.peerConnection = pc;
-	console.log("trace 2: " + connection.pc);
   // What do we need to do now?
   if (options.originator) {
     if (connection.type === 'data') {
@@ -436,11 +434,12 @@ Negotiator.startConnection = function(connection, options) {
     }
 
     if (!util.supports.onnegotiationneeded) {
-			console.log("trace 3: if");
-      Negotiator._makeOffer(connection);
+			console.log("setTimeout");
+      setTimeout(function(ev) {
+				Negotiator._makeOffer(connection);
+			}, 1);
     }
   } else {
-		console.log("trace 3: else");
     Negotiator.handleSDP('OFFER', connection, options.sdp);
   }
 }
@@ -513,9 +512,6 @@ Negotiator._startPeerConnection = function(connection) {
 
 /** Set up various WebRTC listeners. */
 Negotiator._setupListeners = function(connection, pc, pc_id) {
-	console.log("connection : " + connection);
-	console.log("pc : " + pc);
-	console.log("pc_id : " + pc_id);
   var peerId = connection.peer;
   var connectionId = connection.id;
   var provider = connection.provider;
@@ -562,8 +558,10 @@ Negotiator._setupListeners = function(connection, pc, pc_id) {
   pc.onnegotiationneeded = function() {
     util.log('`negotiationneeded` triggered');
     if (pc.signalingState == 'stable') {
-			console.log("HEREHERE : " + connection);
-      Negotiator._makeOffer(connection);
+			console.log("HEREHERE : " + connection.pc);
+      setTimeout(function(ev) {
+				Negotiator._makeOffer(connection);
+			}, 1);
     } else {
       util.log('onnegotiationneeded triggered when not stable. Is another connection being established?');
     }
