@@ -1,8 +1,10 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', function (event) {
-    var todoMediaStream = new MediaStreamManager();
-    todoMediaStream.start();
+    var todovediostream = new MediaStreamManager();
+    todovediostream.start(false);
+    var todomediastream = new MediaStreamManager();
+    todomediastream.start(true);
     var todoSignalChannel = new SignalChannelManager();
     todoSignalChannel.start();
 });

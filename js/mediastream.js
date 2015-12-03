@@ -24,15 +24,20 @@
     }
   }
   MediaStreamManager.prototype = {
-    start() {
-      var constraints = {audio: false, video: true};
+    start(temp) {
+      this.audio_set = temp;
+      var constraints = {audio: Boolean(this.audio_set), video: true};
       navigator.mediaDevices.getUserMedia(constraints)
       .then(function(stream) {
-        console.log("localstream" + stream);
-        window.localstream = stream;
-        window.video = document.getElementById('local');
-        window.video.src = window.URL.createObjectURL(localstream);
-      })
+        if(Boolean(this.audio_set) == false) {
+          console.log("false: " + stream);
+          window.video = document.getElementById('local');
+          window.video.src = window.URL.createObjectURL(stream);
+        } else {
+          console.log("true:" + stream);
+          window.localstream = stream;
+        }
+      }.bind(this))
       .catch(function(err) {
         console.log(err.name + ": " + err.message);
       });
