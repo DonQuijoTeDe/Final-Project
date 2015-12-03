@@ -1,14 +1,20 @@
-describe('Test TodoListManager ', function () {
+describe('Test SignalChannelManager ', function () {
     var subject;
 
     beforeEach(function () {
-        subject = new TodoListManager();
+      subject = new SignalChannelManager();
     });
 
-    it('Test drawList function', function () {
-        subject._wrapper = document.createElement('div');
-        subject.drawList();
-        assert.isNull(subject._wrapper.querySelector('li'), "The test fail!");
+    it('Test login_set function', function () {
         //use "assert" to check if the result is good or bad
     });
+
+    it('Test callee_set function', function () {
+        //use "assert" to check if the result is good or bad
+    });
+
+    it('Test register function', function () {
+        //use "assert" to check if the result is good or bad
+    });
+
 });
