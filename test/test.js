@@ -5,16 +5,17 @@ describe('Test SignalChannelManager ', function () {
       subject = new SignalChannelManager();
     });
 
-    it('Test login_set function', function () {
-        //use "assert" to check if the result is good or bad
-    });
+    describe('Test register function', function() {
+      it('test object', function () {
+        subject.register(null);
+        assert.equal(subject.login_name, '', "The test is fail!");
+        this.peer = ''
+      });
 
-    it('Test callee_set function', function () {
-        //use "assert" to check if the result is good or bad
-    });
-
-    it('Test register function', function () {
-        //use "assert" to check if the result is good or bad
-    });
+      it('test object', function () {
+        subject.register(null);
+        assert.isNotNull(subject.peer, "The test is fail!");
+      });
+    })
 
 });
