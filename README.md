@@ -7,9 +7,9 @@ to chat with remote user
 
 1. Check your device whether it appears below
     * Mobile : Android 、FireFox OS
-    * Desktop : Be sure that your device has a vedio camera
+    * Desktop : Be sure that your device has a video camera
 2. Please open the app with **FireFox Nightly Browser** as much as possible
-3. The **Chrome Browser** has a insecure problem that I'm still tring to solve it
+3. The **Chrome Browser** has a insecure problem that I'm still trying to solve it
 
 ## Step
 
