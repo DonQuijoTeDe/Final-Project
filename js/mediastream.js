@@ -2,7 +2,10 @@
 
 (function (exports) {
   var MediaStreamManager = function() {
-    /*if (navigator.mediaDevices || (navigator.mozGetUserMedia || navigator.webkitGetUserMedia)) {
+    /*the code below is the way that I
+    have tried to conquer the echo problem
+
+    if (navigator.mediaDevices || (navigator.mozGetUserMedia || navigator.webkitGetUserMedia)) {
       try {
         navigator.mediaDevices = {
           getUserMedia: function(c) {

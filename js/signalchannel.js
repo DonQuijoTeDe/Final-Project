@@ -65,7 +65,8 @@
         content.username.style.background = "#55ff5b";
       });
       this.peer.on('call', function(call) {
-        this.call = call;
+        this.call = call;+
+
         console.log("Hi ,I got your call !");
         this.call.answer(window.localstream);
         this.call_connected();
