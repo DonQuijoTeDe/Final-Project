@@ -19,7 +19,7 @@ to chat with remote user
     * If you still cann't see the notification , try following
         * Please update your browser's version to the latest version
 3. Enter a login name and click **Login**
-4. If your parter is already online , please enter your parter's login name and click **Call**
+4. If your partner is already online , please enter your partner's login name and click **Call**
 
 ### Future Work
 
