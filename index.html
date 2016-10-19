@@ -2,26 +2,34 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Final-Project</title>
-        <meta name="viewport" content="width=device-width; initial-scale=1.0">
+        <title>Video Conference</title>
         <link rel="stylesheet" href="css/app.css">
+
+        <script type="text/javascript" src="js/libs/grid.js"></script>
+        <script type="text/javascript" src="js/background.js"></script>
 
         <script type="text/javascript" src="js/libs/peer.js"></script>
         <script type="text/javascript" src="js/libs/adapter.js"></script>
+
+        <script type="text/javascript" src="js/mediastream.js"></script>
+        <script type="text/javascript" src="js/signalchannel.js"></script>
         <script type="text/javascript" src="js/main.js" defer></script>
-        <script type="text/javascript" src="js/mediastream.js" defer></script>
-        <script type="text/javascript" src="js/signalchannel.js" defer></script>
     </head>
     <body>
-      <video id="local" autoplay></video>
-      <video id="remote" autoplay></video>
-      <form name="loginForm" id="login">
-        <input class="input_text" type="text" name="username" placeholder="Your nickname" />
-        <input class="input_submit" type="submit" name="login_submit" value="Login">
-      </form>
-      <form name="callForm" id="call">
-	      <input class="input_text" type="text" name="number" placeholder="Your friends name" />
-	      <input class="input_submit" type="submit" name="call_submit" value="Call"/>
-      </form>
+      <canvas id = "background" style = 'position: absolute; left: 0px; top: 0px;'></canvas>
+      <div id = "top">
+          <video id="local" autoplay style = 'position: relative;'></video>
+          <video id="remote" autoplay style = 'position: absolute;'></video>
+      </div>
+      <div id = "down">
+          <form name="loginForm" id="login">
+            <input class="input_text" type="text" name="username" placeholder="Enter your name" />
+            <input class="input_submit" type="submit" name="login_submit" value="Login">
+          </form>
+          <form name="callForm" id="call">
+    	      <input class="input_text" type="text" name="number" placeholder="Enter your friend's name" />
+    	      <input class="input_submit" type="submit" name="call_submit" value="Call"/>
+          </form>
+      </div>
     </body>
 </html>

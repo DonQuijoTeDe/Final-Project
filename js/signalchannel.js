@@ -11,6 +11,7 @@
     start() {
       //listen for logining
       var content = document.getElementById("login");
+      console.log(content);
       content.addEventListener('submit', function(evt) {
         evt.preventDefault();
         this.login_set(content).then(function() {
