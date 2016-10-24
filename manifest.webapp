@@ -1,6 +1,6 @@
 {
   "name": "Video Conference",
-  "description": "A web app that enable user to chat with another user!",
+  "description": "A web app that enable one user to chat with another user!",
   "launch_path": "/index.html",
   "icons": {
     "16": "/img/icons/logo16x16.png",
@@ -9,8 +9,8 @@
     "128": "/img/icons/logo128x128.png"
   },
   "developer": {
-    "name": "Don",
-    "url": "https://github.com/DonQuijoTeDe"
+    "name": "Kakason",
+    "url": "https://github.com/kakason"
   },
   "permissions": {
     "audio-capture": {
